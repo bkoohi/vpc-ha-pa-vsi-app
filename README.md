@@ -20,7 +20,7 @@ cd vpc-ha-pa-vsi-app
 ```
 4. update variable.tf file with the following variables:
    - Update ssh_keyname variable with your ssh key name in IBM Cloud.
-      > Follow IBM Cloud procedure for creating new ssh key, if required: https://cloud.ibm.com/docs/ssh-keys?topic=ssh-keys-adding-an-ssh-key
+      - Follow IBM Cloud procedure for creating new ssh key, if required: https://cloud.ibm.com/docs/ssh-keys?topic=ssh-keys-adding-an-ssh-key
    - Follow IBM Cloud procedure for creating new API key, if required: https://cloud.ibm.com/docs/account?topic=account-userapikey&interface=ui
 
 ```
