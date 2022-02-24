@@ -9,7 +9,10 @@ Solution components are:
 
 
 ## Deployment procedure
-1. Git clone a copy of terraform
+1. Download a copy of terraforms:
+```
+Git clone a copy of terraform
+```
 git clone https://github.com/bkoohi/vpc-ha-pa-vsi-app.git
 2. cd vpc-ha-pa-vsi-app
 3. update variable.tf file with your API key and ssh key
