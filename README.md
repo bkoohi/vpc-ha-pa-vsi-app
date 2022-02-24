@@ -13,5 +13,7 @@ Solution components are:
 git clone https://github.com/bkoohi/vpc-ha-pa-vsi-app.git
 2. cd vpc-ha-pa-vsi-app
 3. update variable.tf file with your API key and ssh key
-4. terraform init
-5. terraform apply -auto-approve 
+   Follow IBM Cloud procedure for creating new ssh key, if required: https://cloud.ibm.com/docs/ssh-keys?topic=ssh-keys-adding-an-ssh-key
+   Follow IBM Cloud procedure for creating new API key, if required: https://cloud.ibm.com/docs/account?topic=account-userapikey&interface=ui
+5. terraform init
+6. terraform apply -auto-approve 
