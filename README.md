@@ -19,10 +19,15 @@ git clone https://github.com/bkoohi/vpc-ha-pa-vsi-app.git
 cd vpc-ha-pa-vsi-app
 ```
 4. update variable.tf file with the following variables:
-   - Update ssh_keyname variable with your ssh key name in IBM Cloud.
+   - vpc_name : VPC name used for deployment 
+   - basename : Prefix used for network subnets and VSIs names.
+   - region   : Region to use for deployment of the environment
+   - resource_group_name : Default is standard default resource group.
+   - ssh_keyname : ssh key used for accessing Web and Palo Alto VSIs 
       - Follow IBM Cloud procedure for creating new ssh key, if required: https://cloud.ibm.com/docs/ssh-keys?topic=ssh-keys-adding-an-ssh-key
-   - Follow IBM Cloud procedure for creating new API key, if required: https://cloud.ibm.com/docs/account?topic=account-userapikey&interface=ui
-
+   - ibmcloud_api_key ued for environment deployment. 
+      - Follow IBM Cloud procedure for creating new API key, if required: https://cloud.ibm.com/docs/account?topic=account-userapikey&interface=ui
+   
 ```
 vi variable.tf
 ```
