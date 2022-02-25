@@ -56,5 +56,5 @@ cd scripts
 13. Apply Palo Alto licenses to both appliances. Login into Devices as admin, Devices --> Licenses --> Active feature using authentication code
 14. Test Web application: 
 ```
-url -v hostname_public_alb 
+curl -v hostname_public_alb 
 ```
