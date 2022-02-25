@@ -19,6 +19,9 @@ git clone https://github.com/bkoohi/vpc-ha-pa-vsi-app.git
 cd vpc-ha-pa-vsi-app
 ```
 4. update variable.tf file with the following variables:
+```
+vi variable.tf
+```
    - vpc_name : VPC name used for deployment 
    - basename : Prefix used for network subnets and VSIs names.
    - region   : Region to use for deployment of the environment
@@ -28,15 +31,20 @@ cd vpc-ha-pa-vsi-app
    - ibmcloud_api_key ued for environment deployment. 
       - Follow IBM Cloud procedure for creating new API key, if required: https://cloud.ibm.com/docs/account?topic=account-userapikey&interface=ui
    
-```
-vi variable.tf
-```
 
-5. terraform init
-6. terraform apply -auto-approve
-7. Review list of VSIs in VPC and identify Palo Alto VSI ( pa-ha-instanca1 & pa-ha-instanca2 ). Record FIPs for two Palo Alto VSIs.
-8. Review list Load Balancers in VPC and identify Public Load Balancer ( ie. auto-scale-vpc-vnf-alb ) deployed for Palo Alto VSIs and Private Load Balanncer ( ie. auto-scale-vpc-web-alb ) deployed for auto-scale Web app VSIs. Record hostname of Private Load Balancer ( ie. 3bdeefaa-us-south.lb.appdomain.cloud )
-9. Use Palo Alto configuration script provided in scripts directory to configure each Palo Alto instance
+
+5. Initialize terrform
+```
+%terraform init
+```
+7. Apply terraform
+```
+%terraform apply -auto-approve
+
+```
+9. Review list of VSIs in VPC and identify Palo Alto VSI ( pa-ha-instanca1 & pa-ha-instanca2 ). Record FIPs for two Palo Alto VSIs.
+10. Review list Load Balancers in VPC and identify Public Load Balancer ( ie. auto-scale-vpc-vnf-alb ) deployed for Palo Alto VSIs and Private Load Balanncer ( ie. auto-scale-vpc-web-alb ) deployed for auto-scale Web app VSIs. Record hostname of Private Load Balancer ( ie. 3bdeefaa-us-south.lb.appdomain.cloud )
+11. Use Palo Alto configuration script provided in scripts directory to configure each Palo Alto instance
 ```
 % cd scripts
 % ./remote-vnf-setup.sh 52.116.129.163 admin P@rtal123 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
