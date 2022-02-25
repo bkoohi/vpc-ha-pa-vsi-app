@@ -53,4 +53,5 @@ cd scripts
 ```
 ./remote-vnf-setup.sh 150.240.66.11 admin P@rtal123 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
-13. 
+13. Apply Palo Alto licenses to both appliances. Login into Devices as admin, Devices --> Licenses --> Active feature using authentication code
+14. Test Web application: curl -v hostname_public_alb 
