@@ -35,22 +35,22 @@ vi variable.tf
 
 5. Initialize terrform
 ```
-%terraform init
+terraform init
 ```
 7. Apply terraform
 ```
-%terraform apply -auto-approve
+terraform apply -auto-approve
 
 ```
 9. Review list of VSIs in VPC and identify Palo Alto VSI ( pa-ha-instanca1 & pa-ha-instanca2 ). Record FIPs for two Palo Alto VSIs.
 10. Review list Load Balancers in VPC and identify Public Load Balancer ( ie. auto-scale-vpc-vnf-alb ) deployed for Palo Alto VSIs and Private Load Balanncer ( ie. auto-scale-vpc-web-alb ) deployed for auto-scale Web app VSIs. Record hostname of Private Load Balancer ( ie. 3bdeefaa-us-south.lb.appdomain.cloud )
 11. Use Palo Alto configuration script provided in scripts directory to configure each Palo Alto instance
 ```
-% cd scripts
-% ./remote-vnf-setup.sh 52.116.129.163 admin P@rtal123 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
+cd scripts
+./remote-vnf-setup.sh 52.116.129.163 admin P@rtal123 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
 11. Try step 9 for configuring 2nd Palo Alto instance
 ```
-% ./remote-vnf-setup.sh 150.240.66.11 admin P@rtal123 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
+./remote-vnf-setup.sh 150.240.66.11 admin P@rtal123 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
 13. 
