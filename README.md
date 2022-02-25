@@ -41,4 +41,8 @@ vi variable.tf
 % cd scripts
 % ./remote-vnf-setup.sh 52.116.129.163 admin P@rtal123 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
-11. dfdf
+11. Try step 9 for configuring 2nd Palo Alto instance
+```
+% ./remote-vnf-setup.sh 150.240.66.11 admin P@rtal123 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
+```
+13. 
