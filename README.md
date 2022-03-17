@@ -7,17 +7,12 @@ Solution components are:
 4. A private internal facing ALB
 5. An auto-scale instance group with a Web instance image for a simple web application
 
-## Prerequisite 
+##1 Prerequisite 
 
-In order to setup your laptop or jumpbox for executing
-1- An IBMM cloud account with an ID
-2- Role access to provision VPC, Object Storage 
-3- Using Default resource group or create a new Resource group for the project
-4 
-4- IBM Cloud Cli ( https://cloud.ibm.com/docs/cli?topic=cli-install-ibmcloud-cli )
-5- Terraform 
+Follow these [steps](https://github.com/bkoohi/IBM-cloud-vpc-with-vnf/edit/main/readme/prerequisite.md)
+to setup your jump server or laptop with appropriate software and configurations for running terraforms to build your environment.
 
-## Deployment procedure
+##2 Deployment procedure
 1. Download a copy of terraforms:
 ```
 git clone a copy of terraform
@@ -56,11 +51,11 @@ terraform apply -auto-approve
 11. Use Palo Alto configuration script provided in scripts directory to configure each Palo Alto instance
 ```
 cd scripts
-./remote-vnf-setup.sh 52.116.129.163 admin P@rtal123 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
+./remote-vnf-setup.sh 52.116.129.163 admin new_passwd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
 11. Try step 9 for configuring 2nd Palo Alto instance
 ```
-./remote-vnf-setup.sh 150.240.66.11 admin P@rtal123 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
+./remote-vnf-setup.sh 150.240.66.11 admin new_psswd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
 13. Apply Palo Alto licenses to both appliances. Login into Devices as admin, Devices --> Licenses --> Active feature using authentication code
 14. Test Web application: 
