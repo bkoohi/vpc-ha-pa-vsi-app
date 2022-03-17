@@ -50,7 +50,6 @@ vi variable.tf
    - region   : Region to use for deployment of the environment such as ca-tor, us-south
    - ssh_keyname : ssh key used for accessing Web and Palo Alto VSIs 
    - Follow IBM Cloud procedure for creating new ssh key, if required: https://cloud.ibm.com/docs/ssh-keys?topic=ssh-keys-adding-an-ssh-key
-```
 
 
 5. Initialize terrform
