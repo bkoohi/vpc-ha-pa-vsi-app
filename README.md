@@ -7,15 +7,13 @@ Solution components are:
 4. A private internal facing ALB
 5. An auto-scale instance group with a Web instance image for a simple web application
 
-##1 Prerequisite 
+## 1 Prerequisite 
 
 Follow these [steps](https://github.com/bkoohi/IBM-cloud-vpc-with-vnf/edit/main/readme/prerequisite.md)
 to setup your jump server or laptop with appropriate software and configurations for running terraforms to build your environment.
 
-##2 Deployment procedure
+## 2 Deployment procedure
 1. Download a copy of terraforms:
-```
-git clone a copy of terraform
 ```
 git clone https://github.com/bkoohi/vpc-ha-pa-vsi-app.git
 ```
