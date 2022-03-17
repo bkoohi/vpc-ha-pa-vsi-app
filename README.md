@@ -18,6 +18,7 @@ to setup your jump server or laptop with appropriate software and configurations
 git clone a copy of terraform
 ```
 git clone https://github.com/bkoohi/vpc-ha-pa-vsi-app.git
+```
 2. Change dir to downloaded directory
 ```
 cd vpc-ha-pa-vsi-app
