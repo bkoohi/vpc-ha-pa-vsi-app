@@ -8,6 +8,8 @@ Solution components are:
 5. An auto-scale instance group with a Web instance image for a simple web application
 
 ## Prerequisite 
+
+In order to setup your laptop or jumpbox for executing
 1- An IBMM cloud account with an ID
 2- Role access to provision VPC, Object Storage 
 3- Using Default resource group or create a new Resource group for the project
