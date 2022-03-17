@@ -7,6 +7,13 @@ Solution components are:
 4. A private internal facing ALB
 5. An auto-scale instance group with a Web instance image for a simple web application
 
+## Prerequisite 
+1- An IBMM cloud account with an ID
+2- Role access to provision VPC, Object Storage 
+3- Using Default resource group or create a new Resource group for the project
+4 
+4- IBM Cloud Cli ( https://cloud.ibm.com/docs/cli?topic=cli-install-ibmcloud-cli )
+5- Terraform 
 
 ## Deployment procedure
 1. Download a copy of terraforms:
