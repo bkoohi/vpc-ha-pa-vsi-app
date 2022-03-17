@@ -67,6 +67,7 @@ terraform apply -auto-approve
 9. Use Palo Alto configuration script provided in scripts directory to configure each Palo Alto instance
 ```
 cd scripts
+```
 ./remote-vnf-setup.sh 52.116.129.163 admin new_passwd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
 10. Try step 9 for configuring 2nd Palo Alto instance
@@ -75,16 +76,19 @@ cd scripts
 ```
 11. Apply Palo Alto licenses to both appliances. Login into Devices as admin, Devices --> Licenses --> Active feature using authentication code
 12. Test Web application: 
+
 ```
 curl -v hostname_public_alb 
 ```
 13. Delete the environment.
+
 ```
 terraform destroy
 ```
 
 14. Delete API key, if you don't need it
+
 ```
-login % ibmcloud iam api-key-delete newkey
+ibmcloud iam api-key-delete newkey
 ```
 
