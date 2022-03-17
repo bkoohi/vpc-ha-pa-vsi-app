@@ -21,48 +21,70 @@ git clone https://github.com/bkoohi/vpc-ha-pa-vsi-app.git
 ```
 cd vpc-ha-pa-vsi-app
 ```
-3. update variable.tf file with the following variables:
+3. Generate an API key, if you don't have a key to use for the next step
+```
+ibmcloud iam api-key-create newkey
+Creating API key newkey under ...
+OK
+API key newkey was created
+
+Please preserve the API key! It cannot be retrieved after it's created.
+                 
+ID            ApiKey-.....
+Name          newkey   
+Description      
+Created At    2022-03-17T19:28+0000   
+API Key       xxxxx-xxxxx
+Locked        false 
+```
+Store xxxx-xxxx API key for the next step
+
+4. update variable.tf file with the following variables:
 ```
 vi variable.tf
 ```
-   - vpc_name : VPC name used for deployment 
-   - basename : Prefix used for network subnets and VSIs names.
-   - region   : Region to use for deployment of the environment
+   - ibmcloud_api_key: add your API key to default value
    - resource_group_name : Default is standard default resource group.
+   - vpc_name : VPC name used for deployment 
+   - basename : Prefix used for network subnets and VSIs name such as Demo, Dev, Prod....
+   - region   : Region to use for deployment of the environment such as ca-tor, us-south
    - ssh_keyname : ssh key used for accessing Web and Palo Alto VSIs 
-      - Follow IBM Cloud procedure for creating new ssh key, if required: https://cloud.ibm.com/docs/ssh-keys?topic=ssh-keys-adding-an-ssh-key
-   - ibmcloud_api_key ued for environment deployment. 
-      - Follow IBM Cloud procedure for creating new API key, if required: https://cloud.ibm.com/docs/account?topic=account-userapikey&interface=ui
-   
+   - Follow IBM Cloud procedure for creating new ssh key, if required: https://cloud.ibm.com/docs/ssh-keys?topic=ssh-keys-adding-an-ssh-key
+```
 
 
-4. Initialize terrform
+5. Initialize terrform
 ```
 terraform init
 ```
-5. Apply terraform
+6. Apply terraform
 ```
 terraform apply -auto-approve
 
 ```
-6. Review list of VSIs in VPC and identify Palo Alto VSI ( pa-ha-instanca1 & pa-ha-instanca2 ). Record FIPs for two Palo Alto VSIs.
-7. Review list Load Balancers in VPC and identify Public Load Balancer ( ie. auto-scale-vpc-vnf-alb ) deployed for Palo Alto VSIs and Private Load Balanncer ( ie. auto-scale-vpc-web-alb ) deployed for auto-scale Web app VSIs. Record hostname of Private Load Balancer ( ie. 3bdeefaa-us-south.lb.appdomain.cloud )
-8. Use Palo Alto configuration script provided in scripts directory to configure each Palo Alto instance
+7. Review list of VSIs in VPC and identify Palo Alto VSI ( pa-ha-instanca1 & pa-ha-instanca2 ). Record FIPs for two Palo Alto VSIs.
+8. Review list Load Balancers in VPC and identify Public Load Balancer ( ie. auto-scale-vpc-vnf-alb ) deployed for Palo Alto VSIs and Private Load Balanncer ( ie. auto-scale-vpc-web-alb ) deployed for auto-scale Web app VSIs. Record hostname of Private Load Balancer ( ie. 3bdeefaa-us-south.lb.appdomain.cloud )
+9. Use Palo Alto configuration script provided in scripts directory to configure each Palo Alto instance
 ```
 cd scripts
 ./remote-vnf-setup.sh 52.116.129.163 admin new_passwd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
-9. Try step 9 for configuring 2nd Palo Alto instance
+10. Try step 9 for configuring 2nd Palo Alto instance
 ```
 ./remote-vnf-setup.sh 150.240.66.11 admin new_psswd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
-10. Apply Palo Alto licenses to both appliances. Login into Devices as admin, Devices --> Licenses --> Active feature using authentication code
-11. Test Web application: 
+11. Apply Palo Alto licenses to both appliances. Login into Devices as admin, Devices --> Licenses --> Active feature using authentication code
+12. Test Web application: 
 ```
 curl -v hostname_public_alb 
 ```
-9. Delete the environment.
+13. Delete the environment.
 ```
 terraform destroy
+```
+
+14. Delete API key, if you don't need it
+```
+login % ibmcloud iam api-key-delete newkey
 ```
 

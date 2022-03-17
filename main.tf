@@ -481,9 +481,7 @@ resource "ibm_is_instance_template" "web_instance_template" {
   vpc       = ibm_is_vpc.vpc.id
   zone      = "${var.region}-1"
   keys      = [data.ibm_is_ssh_key.sshkey.id]
-  user_data = var.enable_end_to_end_encryption ? file("./scripts/install-software-ssl.sh") : file("./scripts/install-software.sh")
 }
-#
 resource "ibm_is_instance_group" "web_instance_group" {
   name               = "${var.basename}-web-instance"
   instance_template  = ibm_is_instance_template.web_instance_template.id
