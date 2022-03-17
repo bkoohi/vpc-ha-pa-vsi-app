@@ -21,7 +21,7 @@ git clone https://github.com/bkoohi/vpc-ha-pa-vsi-app.git
 ```
 cd vpc-ha-pa-vsi-app
 ```
-4. update variable.tf file with the following variables:
+3. update variable.tf file with the following variables:
 ```
 vi variable.tf
 ```
@@ -36,28 +36,28 @@ vi variable.tf
    
 
 
-5. Initialize terrform
+4. Initialize terrform
 ```
 terraform init
 ```
-7. Apply terraform
+5. Apply terraform
 ```
 terraform apply -auto-approve
 
 ```
-9. Review list of VSIs in VPC and identify Palo Alto VSI ( pa-ha-instanca1 & pa-ha-instanca2 ). Record FIPs for two Palo Alto VSIs.
-10. Review list Load Balancers in VPC and identify Public Load Balancer ( ie. auto-scale-vpc-vnf-alb ) deployed for Palo Alto VSIs and Private Load Balanncer ( ie. auto-scale-vpc-web-alb ) deployed for auto-scale Web app VSIs. Record hostname of Private Load Balancer ( ie. 3bdeefaa-us-south.lb.appdomain.cloud )
-11. Use Palo Alto configuration script provided in scripts directory to configure each Palo Alto instance
+6. Review list of VSIs in VPC and identify Palo Alto VSI ( pa-ha-instanca1 & pa-ha-instanca2 ). Record FIPs for two Palo Alto VSIs.
+7. Review list Load Balancers in VPC and identify Public Load Balancer ( ie. auto-scale-vpc-vnf-alb ) deployed for Palo Alto VSIs and Private Load Balanncer ( ie. auto-scale-vpc-web-alb ) deployed for auto-scale Web app VSIs. Record hostname of Private Load Balancer ( ie. 3bdeefaa-us-south.lb.appdomain.cloud )
+8. Use Palo Alto configuration script provided in scripts directory to configure each Palo Alto instance
 ```
 cd scripts
 ./remote-vnf-setup.sh 52.116.129.163 admin new_passwd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
-11. Try step 9 for configuring 2nd Palo Alto instance
+9. Try step 9 for configuring 2nd Palo Alto instance
 ```
 ./remote-vnf-setup.sh 150.240.66.11 admin new_psswd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
-13. Apply Palo Alto licenses to both appliances. Login into Devices as admin, Devices --> Licenses --> Active feature using authentication code
-14. Test Web application: 
+10. Apply Palo Alto licenses to both appliances. Login into Devices as admin, Devices --> Licenses --> Active feature using authentication code
+11. Test Web application: 
 ```
 curl -v hostname_public_alb 
 ```
