@@ -61,3 +61,8 @@ cd scripts
 ```
 curl -v hostname_public_alb 
 ```
+9. Delete the environment.
+```
+terraform destroy
+```
+
