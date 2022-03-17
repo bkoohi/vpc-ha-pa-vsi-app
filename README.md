@@ -66,7 +66,6 @@ terraform apply -auto-approve
 9. Use Palo Alto configuration script provided in scripts directory to configure each Palo Alto instance
 ```
 cd scripts
-```
 ./remote-vnf-setup.sh 52.116.129.163 admin new_passwd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
 10. Try step 9 for configuring 2nd Palo Alto instance
