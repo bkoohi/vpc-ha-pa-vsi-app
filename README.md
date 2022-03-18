@@ -9,7 +9,7 @@ Solution components are:
 
 ## 1 Prerequisite 
 
-Follow these [steps](https://github.com/bkoohi/IBM-cloud-vpc-with-vnf/edit/main/readme/prerequisite.md)
+Follow these [steps](https://github.com/bkoohi/IBM-cloud-vpc-with-vnf/edit/main/readme/prerequisite.md/)
 to setup your jump server or laptop with appropriate software and configurations for running terraforms to build your environment.
 
 ## 2 Deployment procedure
