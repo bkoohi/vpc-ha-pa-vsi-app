@@ -281,7 +281,7 @@ resource "ibm_is_security_group_rule" "web_security_group_rule_tcp_inbound_443" 
 
 resource "ibm_is_lb" "pub_alb" {
   name            = "${var.vpc_name}-vnf-alb"
-  subnets         = ibm_is_subnet.vnf_subnet[0].*.id
+  subnets         = [for subnet in ibm_is_subnet.vnf_subnet: subnet.id]
   resource_group  = data.ibm_resource_group.group.id
   security_groups = [ibm_is_security_group.pub_alb_security_group.id]
 }
@@ -375,29 +375,29 @@ resource "ibm_is_instance" "pa-ha2" {
   profile        = "bx2-8x32"
   resource_group =  data.ibm_resource_group.group.id
   vpc       = ibm_is_vpc.vpc.id
-  zone      = "${var.region}-1"
+  zone      = "${var.region}-2"
   keys      = [data.ibm_is_ssh_key.sshkey.id]
   primary_network_interface {
-    subnet          = ibm_is_subnet.mgm_subnet[0].id
+    subnet          = ibm_is_subnet.mgm_subnet[1].id
     security_groups = [ibm_is_security_group.pub_alb_security_group.id]
     allow_ip_spoofing = true
   }
  network_interfaces {
     name   = "eth1"
     security_groups = [ibm_is_security_group.pub_alb_security_group.id]
-    subnet = ibm_is_subnet.vnf_subnet[0].id
+    subnet = ibm_is_subnet.vnf_subnet[1].id
     allow_ip_spoofing = true
   }
  network_interfaces {
     name   = "eth2"
     security_groups = [ibm_is_security_group.pub_alb_security_group.id]
-    subnet = ibm_is_subnet.onprem_subnet[0].id
+    subnet = ibm_is_subnet.onprem_subnet[1].id
     allow_ip_spoofing = true
   }
  network_interfaces {
     name   = "eth3"
     security_groups = [ibm_is_security_group.pub_alb_security_group.id]
-    subnet = ibm_is_subnet.web_subnet[0].id
+    subnet = ibm_is_subnet.web_subnet[1].id
     allow_ip_spoofing = true
   }
     
@@ -422,7 +422,7 @@ resource "ibm_is_lb_pool_member" "pub_alb_member2" {
   lb = "${ibm_is_lb.pub_alb.id}"
   pool ="${ibm_is_lb_pool.pub_alb_pool.id}"
   port  = 80
-  target_address = "${ibm_is_instance.pa-ha2.network_interfaces[0].primary_ipv4_address}"
+  target_address = "${ibm_is_instance.pa-ha2.network_interfaces[1].primary_ipv4_address}"
 }
 #output "IP" {
 #  value = ibm_is_instance.pa-ha1.network_interfaces[0].primary_ipv4_address
@@ -433,7 +433,7 @@ resource "ibm_is_lb_pool_member" "pub_alb_member2" {
 
 resource "ibm_is_lb" "web_alb" {
   name            = "${var.vpc_name}-web-alb"
-  subnets         = [ibm_is_subnet.web_subnet[0].id,ibm_is_subnet.web_subnet[1].id]
+  subnets         = [for subnet in ibm_is_subnet.web_subnet: subnet.id]
   resource_group  = data.ibm_resource_group.group.id
   security_groups = [ibm_is_security_group.pub_alb_security_group.id]
   type		  = "private"
@@ -481,7 +481,9 @@ resource "ibm_is_instance_template" "web_instance_template" {
   vpc       = ibm_is_vpc.vpc.id
   zone      = "${var.region}-1"
   keys      = [data.ibm_is_ssh_key.sshkey.id]
+  user_data = var.enable_end_to_end_encryption ? file("./scripts/install-software-ssl.sh") : file("./scripts/install-software.sh")
 }
+#
 resource "ibm_is_instance_group" "web_instance_group" {
   name               = "${var.basename}-web-instance"
   instance_template  = ibm_is_instance_template.web_instance_template.id
