@@ -61,11 +61,37 @@ terraform init
 terraform apply -auto-approve
 
 ```
-7. Review list of VSIs in VPC and identify Palo Alto VSI ( pa-ha-instanca1 & pa-ha-instanca2 ). Record FIPs for two Palo Alto VSIs.
-8. Review list Load Balancers in VPC and identify Public Load Balancer ( ie. auto-scale-vpc-vnf-alb ) deployed for Palo Alto VSIs and Private Load Balanncer ( ie. auto-scale-vpc-web-alb ) deployed for auto-scale Web app VSIs. Record hostname of Private Load Balancer ( ie. 3bdeefaa-us-south.lb.appdomain.cloud )
-9. Use Palo Alto configuration script provided in scripts directory to configure each Palo Alto instance
+7. Identify deployed Palo Alto VSI ( pa-ha-instanca1 & pa-ha-instanca2 ) and record Floating IPs for  two Palo Alto VSIs.
+```
+ibmcloud login -u your_email@xx.xxx.xxxx -sso
+ibmcloud target -r us-south
+ibmcloud is ins
+ID                                          Name                                 Status    Address      Floating IP      Profile    Image                                VPC    Zone         Resource group   
+0717_71025112-088b-444a-84a1-8a669818d0b6   demo-web-instance-k9h0t676y0-2gr49   running   10.240.0.8   -                cx2-2x4    ibm-ubuntu-18-04-1-minimal-amd64-2   test   us-south-1   Default   
+0717_80d015cd-af58-44db-a9e8-00379b14010c   pa-ha-instanca1                      running   10.240.1.4   52.116.133.105   bx2-8x32   test-vnf-eaf168f4                    test   us-south-1   Default   
+0717_b162effd-2232-41ca-b0bb-7bbfe9fabf74   pa-ha-instanca2                      running   10.240.1.5   52.118.191.219   bx2-8x32   test-vnf-eaf168f4                    test   us-south-1   Default   
+behzadkoohi@Behzads-MBP login % 
+```
+
+8. There are two Load balancer deployed in the environment. One public ALB  Load Balancer deployed for Palo Alto VSIa. One private ALB Load balancer deployed for auto scaling Web App VSIs.
+```
+Listing load balancers in all resource groups and region us-south under account Behzad Koohi's Account as user BEHZADK@CA.IBM.COM...
+ID                                          Name           Family        Subnets                                Is public   Provision status   Operating status   Resource group   
+r006-7d7d18a0-d878-4753-8ba5-0624df7a6122   test-web-alb   Application   test-web-subnet-1, test-web-subnet-2   false       active             online             Default   
+r006-bb3c95ba-57ff-49ed-847f-f0606674834f   test-vnf-alb   Application   test-vnf-subnet-1                      true        active             online             Default   
+behzadkoohi@Behzads-MBP login %
+```
+9. Identify "web-alb" application load balancer in previous step. Use ID of ALB,Run the following command to find its hostname:
+```
+ibmcloud is lb r006-7d7d18a0-d878-4753-8ba5-0624df7a6122 | grep Host
+Host name                   7d7d18a0-us-south.lb.appdomain.cloud
+```
+Record hostname for the next step.
+
+10. Using Palo Alto floaing IP and Web ALB hostname identified in previous steps, run the following script to configure the each Palo Alto instance. Script will change the default password to new_passwd provided to the script.
 ```
 cd scripts
+./remote-vnf-setup.sh 52.116.129.163 admin new_passwd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ./remote-vnf-setup.sh 52.116.129.163 admin new_passwd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
 ```
 10. Try step 9 for configuring 2nd Palo Alto instance
