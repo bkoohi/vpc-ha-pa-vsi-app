@@ -75,7 +75,7 @@ behzadkoohi@Behzads-MBP login %
 
 8. There are two Load balancer deployed in the environment. One public ALB  Load Balancer deployed for Palo Alto VSIa. One private ALB Load balancer deployed for auto scaling Web App VSIs.
 ```
-Listing load balancers in all resource groups and region us-south under account Behzad Koohi's Account as user BEHZADK@CA.IBM.COM...
+% ibmcloud is lbs
 ID                                          Name           Family        Subnets                                Is public   Provision status   Operating status   Resource group   
 r006-7d7d18a0-d878-4753-8ba5-0624df7a6122   test-web-alb   Application   test-web-subnet-1, test-web-subnet-2   false       active             online             Default   
 r006-bb3c95ba-57ff-49ed-847f-f0606674834f   test-vnf-alb   Application   test-vnf-subnet-1                      true        active             online             Default   
@@ -91,18 +91,27 @@ Record hostname for the next step.
 10. Using Palo Alto floaing IP and Web ALB hostname identified in previous steps, run the following script to configure the each Palo Alto instance. Script will change the default password to new_passwd provided to the script.
 ```
 cd scripts
-./remote-vnf-setup.sh 52.116.129.163 admin new_passwd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
-./remote-vnf-setup.sh 52.116.129.163 admin new_passwd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
+./remote-vnf-setup.sh 52.116.129.163 admin new_passwd 3bdeefaa-us-south.lb.appdomain.cloud license_code ( an example )
 ```
 10. Try step 9 for configuring 2nd Palo Alto instance
 ```
-./remote-vnf-setup.sh 150.240.66.11 admin new_psswd 3bdeefaa-us-south.lb.appdomain.cloud ( an example )
+./remote-vnf-setup.sh 52.116.129.163 admin new_passwd 3bdeefaa-us-south.lb.appdomain.cloud license_code ( an example )
 ```
-11. Apply Palo Alto licenses to both appliances. Login into Devices as admin, Devices --> Licenses --> Active feature using authentication code
+
 12. Test Web application: 
 
 ```
-curl -v hostname_public_alb 
+%ibmcloud is lbs                                         
+Listing load balancers in all resource groups and region us-south under account Behzad Koohi's Account as user BEHZADK@CA.IBM.COM...
+ID                                          Name                     Family        Subnets                                                                                 Is public   Provision status   Operating status   Resource group   
+r006-3c95fd5c-c7e8-4c40-b629-ba22af19bf5e   auto-scale-vpc-web-alb   Application   auto-scale-vpc-web-subnet-1, auto-scale-vpc-web-subnet-2, auto-scale-vpc-web-subnet-3   false       active             online             Default   
+r006-3d328c41-5f40-41db-bd11-06c333b1e686   auto-scale-vpc-vnf-alb   Application   auto-scale-vpc-vnf-subnet-1, auto-scale-vpc-vnf-subnet-2, auto-scale-vpc-vnf-subnet-3   true        active             online             Default   
+
+% ibmcloud is lb r006-3c95fd5c-c7e8-4c40-b629-ba22af19bf5e | grep Host
+Host name                   3c95fd5c-us-south.lb.appdomain.cloud   
+% 
+
+curl -v 3c95fd5c-us-south.lb.appdomain.cloud 
 ```
 13. Delete the environment.
 
